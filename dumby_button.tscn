@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dds1heoxg4hjd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bmaiv"]
+bg_color = Color(0.145098, 0.188235, 0.145098, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="dumby button" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_bmaiv")
+button_mask = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -5.0
+offset_right = 39.0
+offset_bottom = 21.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 30

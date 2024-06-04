@@ -1,0 +1,147 @@
+[gd_scene load_steps=5 format=3 uid="uid://biw1dkxrav1nt"]
+
+[ext_resource type="Script" path="res://month_viewer.gd" id="1_klfj6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pry4g"]
+bg_color = Color(0.827451, 0.356863, 0.176471, 1)
+
+[sub_resource type="Theme" id="Theme_oaoje"]
+default_font_size = 60
+
+[sub_resource type="ImageTexture" id="ImageTexture_7ebai"]
+
+[node name="month viewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_klfj6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 116.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="titlebar" type="Panel" parent="."]
+z_index = 10
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -517.5
+offset_right = 517.5
+offset_bottom = 106.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pry4g")
+
+[node name="Label" type="Label" parent="titlebar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "Calendar"
+
+[node name="settings" type="Button" parent="titlebar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 264.0
+offset_top = 6.0
+offset_right = 354.0
+offset_bottom = 97.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "⚙️"
+
+[node name="menu" type="Button" parent="titlebar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -353.0
+offset_top = 5.0
+offset_right = -291.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "☰"
+
+[node name="yearMenu" type="Panel" parent="."]
+visible = false
+z_index = 10
+layout_mode = 1
+offset_left = 10.0
+offset_top = 112.0
+offset_right = 307.0
+offset_bottom = 346.0
+
+[node name="Label" type="Label" parent="yearMenu"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 95.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 30
+text = "Pick a year:"
+
+[node name="SpinBox" type="SpinBox" parent="yearMenu"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 57.0
+offset_right = 287.0
+offset_bottom = 148.0
+theme = SubResource("Theme_oaoje")
+theme_override_icons/updown = SubResource("ImageTexture_7ebai")
+min_value = 1990.0
+max_value = 3000.0
+value = 2023.0
+suffix = "C.E."
+
+[node name="yearConfirm" type="Button" parent="yearMenu"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 152.0
+offset_right = 289.0
+offset_bottom = 223.0
+theme_override_font_sizes/font_size = 45
+text = "Confirm"
+
+[node name="debug" type="Label" parent="."]
+visible = false
+z_index = 50
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "s"
+autowrap_mode = 1
+
+[connection signal="pressed" from="titlebar/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="titlebar/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="yearMenu/yearConfirm" to="." method="_on_year_confirm_pressed"]

@@ -1,0 +1,309 @@
+[gd_scene load_steps=13 format=3 uid="uid://du8vlk2uwotct"]
+
+[ext_resource type="Script" path="res://create_food.gd" id="1_g3kyx"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_d5618"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nvab"]
+bg_color = Color(0.541176, 0.607843, 0.678431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txkyw"]
+bg_color = Color(0.415686, 0.670588, 0.627451, 1)
+
+[sub_resource type="Animation" id="Animation_dukr4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 157)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ga14y"]
+resource_name = "slideDown"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 157), Vector2(0, 2000)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_wytfy"]
+resource_name = "slideUp"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 2000), Vector2(0, 157)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_20un1"]
+_data = {
+"RESET": SubResource("Animation_dukr4"),
+"slideDown": SubResource("Animation_ga14y"),
+"slideUp": SubResource("Animation_wytfy")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhys6"]
+bg_color = Color(0.0784314, 0.184314, 0.380392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urmmd"]
+bg_color = Color(0.184314, 0.0313726, 0.0745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ne2r"]
+bg_color = Color(0.45098, 0.611765, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gu44"]
+bg_color = Color(0.588235, 0.721569, 0.839216, 1)
+
+[node name="createFood" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g3kyx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="search" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "USDA search"
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Food name"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="emojiButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "🦞"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/updown = SubResource("ImageTexture_d5618")
+max_value = 1e+06
+value = 1000.0
+suffix = "Kcal"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3nvab")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="add" type="Button" parent="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "➕"
+
+[node name="sub" type="Button" parent="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "➖"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 157.0
+offset_bottom = -0.00219727
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_txkyw")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="emojiGrid" type="HFlowContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_20un1")
+}
+
+[node name="USDAcontainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jhys6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="USDAcontainer"]
+layout_mode = 2
+
+[node name="foodName" type="LineEdit" parent="USDAcontainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+placeholder_text = "input food name"
+
+[node name="searchTips" type="Label" parent="USDAcontainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "- at the start of word excludes said word
++ requires said word
+\"quotes\" on phrase searches for exact results"
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="USDAcontainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="USDAcontainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="databaseType" type="Button" parent="USDAcontainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Branded"
+
+[node name="PopupMenu" type="PopupMenu" parent="USDAcontainer/VBoxContainer/HBoxContainer/VBoxContainer/databaseType"]
+initial_position = 2
+size = Vector2i(284, 303)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/panel = SubResource("StyleBoxFlat_urmmd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7ne2r")
+item_count = 5
+item_0/text = "Branded"
+item_0/id = 0
+item_1/text = "SR Legacy"
+item_1/id = 1
+item_2/text = "Foundation"
+item_2/id = 2
+item_3/text = "Survey"
+item_3/id = 3
+item_4/text = "Experimental"
+item_4/id = 4
+
+[node name="brand" type="LineEdit" parent="USDAcontainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+placeholder_text = "brand name"
+
+[node name="submitSearch" type="Button" parent="USDAcontainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "🔎"
+
+[node name="HSeparator" type="HSeparator" parent="USDAcontainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxFlat_6gu44")
+
+[node name="searchResults" type="ItemList" parent="USDAcontainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 35
+item_count = 2
+item_0/text = "grilled cheese"
+item_1/text = ""
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/emojiButton" to="." method="_on_emoji_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/add" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/sub" to="." method="_on_sub_pressed"]
+[connection signal="focus_entered" from="USDAcontainer/VBoxContainer/foodName" to="." method="_on_food_name_focus_entered"]
+[connection signal="focus_exited" from="USDAcontainer/VBoxContainer/foodName" to="." method="_on_food_name_focus_exited"]
+[connection signal="pressed" from="USDAcontainer/VBoxContainer/HBoxContainer/VBoxContainer/databaseType" to="." method="_on_database_type_pressed"]
+[connection signal="id_pressed" from="USDAcontainer/VBoxContainer/HBoxContainer/VBoxContainer/databaseType/PopupMenu" to="." method="_on_popup_menu_id_pressed"]

@@ -1,0 +1,114 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqcjvv4pwslu6"]
+
+[ext_resource type="Script" path="res://meal_item.gd" id="1_sn2mg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07by6"]
+bg_color = Color(0.486275, 0.623529, 0.698039, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmcr5"]
+bg_color = Color(0.486275, 0, 0.133333, 1)
+
+[sub_resource type="ImageTexture" id="ImageTexture_1krgh"]
+
+[node name="mealItem" type="MarginContainer"]
+clip_contents = true
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("1_sn2mg")
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_07by6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 2
+
+[node name="foodName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "🍗 chicken Au gratin and mashed potatoes served cold"
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Container" type="PanelContainer" parent="VBoxContainer/HBoxContainer5"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lmcr5")
+
+[node name="nutritionButton" type="Button" parent="VBoxContainer/HBoxContainer5/Container"]
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_override_font_sizes/font_size = 25
+text = "Nutrition"
+alignment = 0
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "x servings"
+alignment = 2
+expand_to_text_length = true
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "x Kcals"
+alignment = 2
+editable = false
+expand_to_text_length = true
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/HBoxContainer5"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+suffix = "sevings"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer5"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/updown = SubResource("ImageTexture_1krgh")
+value = 100.0
+alignment = 1
+editable = false
+suffix = "Kcal"
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "🗑️"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+auto_height = true
+item_count = 3
+item_0/text = "iron"
+item_0/selectable = false
+item_1/text = "magnesium"
+item_1/selectable = false
+item_2/text = "porkPower"
+item_2/selectable = false
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer5/Container/nutritionButton" to="." method="_on_nutrition_button_pressed"]

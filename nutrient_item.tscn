@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlcaaqlqr3pgv"]
+
+[ext_resource type="Script" path="res://nutrientItem.gd" id="1_hytrj"]
+[ext_resource type="Theme" uid="uid://21bdsb33ma1i" path="res://assets/wideScroll.tres" id="2_nfjp3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7da4"]
+bg_color = Color(0.341176, 0.639216, 0.796078, 0.509804)
+
+[sub_resource type="ImageTexture" id="ImageTexture_o0i1b"]
+
+[node name="nutrientItem" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b7da4")
+script = ExtResource("1_hytrj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="new" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "🆕"
+
+[node name="nutrientEdit" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "default nutrient type
+"
+text_overrun_behavior = 1
+
+[node name="amount" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/updown = SubResource("ImageTexture_o0i1b")
+max_value = 1e+06
+step = 0.01
+value = 100.0
+suffix = "units"
+
+[node name="searchContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/searchContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/searchContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="addnewEntry" type="LineEdit" parent="VBoxContainer/searchContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "add new nutrient"
+
+[node name="addnewUnits" type="LineEdit" parent="VBoxContainer/searchContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "new units"
+
+[node name="oldEntryList" type="ItemList" parent="VBoxContainer/searchContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_nfjp3")
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/nutrientEdit" to="." method="_on_nutrient_edit_pressed"]
+[connection signal="text_submitted" from="VBoxContainer/searchContainer/VBoxContainer/HBoxContainer/addnewEntry" to="." method="_on_addnew_entry_text_submitted"]
+[connection signal="text_submitted" from="VBoxContainer/searchContainer/VBoxContainer/HBoxContainer/addnewUnits" to="." method="_on_addnew_units_text_submitted"]
+[connection signal="item_clicked" from="VBoxContainer/searchContainer/VBoxContainer/oldEntryList" to="." method="_on_old_entry_list_item_clicked"]

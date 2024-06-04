@@ -1,0 +1,243 @@
+[gd_scene load_steps=10 format=3 uid="uid://dod0nlw2r388m"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_406ry"]
+[ext_resource type="PackedScene" uid="uid://cik7wht5p3kn4" path="res://meal.tscn" id="2_apaxu"]
+[ext_resource type="Theme" uid="uid://21bdsb33ma1i" path="res://assets/wideScroll.tres" id="3_ppsam"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kovbg"]
+bg_color = Color(0.333333, 0.0901961, 0.156863, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hyqit"]
+
+[sub_resource type="Animation" id="Animation_dmnul"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("searchPanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("searchPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 2000)]
+}
+
+[sub_resource type="Animation" id="Animation_3s1rn"]
+resource_name = "searchDisable"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("searchPanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("searchPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 2.82844),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2000)]
+}
+
+[sub_resource type="Animation" id="Animation_d24e7"]
+resource_name = "searchEnable"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("searchPanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("searchPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 2.82844),
+"update": 0,
+"values": [Vector2(0, 2000), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fdkab"]
+_data = {
+"RESET": SubResource("Animation_dmnul"),
+"searchDisable": SubResource("Animation_3s1rn"),
+"searchEnable": SubResource("Animation_d24e7")
+}
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_406ry")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="meals" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="breakfast" parent="ScrollContainer/MarginContainer/meals" instance=ExtResource("2_apaxu")]
+layout_mode = 2
+
+[node name="lunch" parent="ScrollContainer/MarginContainer/meals" instance=ExtResource("2_apaxu")]
+layout_mode = 2
+meal = "Lunch"
+
+[node name="dinner" parent="ScrollContainer/MarginContainer/meals" instance=ExtResource("2_apaxu")]
+layout_mode = 2
+meal = "Dinner"
+
+[node name="snack" parent="ScrollContainer/MarginContainer/meals" instance=ExtResource("2_apaxu")]
+layout_mode = 2
+meal = "Snack"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 73.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kovbg")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -174.0
+offset_top = 6.0
+offset_right = -4.0
+offset_bottom = 63.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 35
+text = "2024-5-15"
+alignment = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="debug" type="Label" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 20.0
+offset_right = 111.0
+offset_bottom = 43.0
+text = "debug"
+
+[node name="debugButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 16.0
+offset_right = 343.0
+offset_bottom = 47.0
+text = "to calendar"
+
+[node name="searchPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2000.0
+offset_right = 8640.0
+offset_bottom = 17360.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="searchPanel"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="searchPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="searchEdit" type="LineEdit" parent="searchPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Search"
+
+[node name="Button" type="Button" parent="searchPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "➕"
+
+[node name="searchResults" type="ItemList" parent="searchPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("3_ppsam")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hyqit")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fdkab")
+}
+
+[connection signal="pressed" from="debugButton" to="." method="_on_button_pressed"]
